@@ -1,0 +1,41 @@
+{% extends 'core/index.html' %}
+{% block content %}
+    <div class="container">
+        <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3" style="margin-top: 75px">
+                    {% if message %}
+                    <div class="panel panel-default">
+                        <div class="form-group">
+                            <div style="text-align: center ">{{ message }}</div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if errors %}
+                    <div class="panel panel-default">
+                        <div class="form-group">
+                            <div style="text-align: center ">{{ errors }}</div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label for="start">начало:</label>
+                                <input id="start" class="form-control" maxlength="200" name="start" type="text" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="end">конец:</label>
+                                <input id="end" class="form-control" maxlength="200" name="end" type="text" value="">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default">Сохранить</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="persons"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

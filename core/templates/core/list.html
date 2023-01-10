@@ -1,0 +1,67 @@
+{% extends 'core/index.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="panel panel-default">
+            <table class="table">
+                <tr>
+                    <td class="col-sm-3">
+                        <a href="http://127.0.0.1:8000/?f={{ f }}&page=1&set=10&year_order_by={{ year_order_by }}" class="btn btn-default">по 10 записей</a>
+                        <a href="http://127.0.0.1:8000/?f={{ f }}&page=1&set=20&year_order_by={{ year_order_by }}" class="btn btn-default">по 20 записей</a>
+                    </td>
+                    <td class="col-sm-3">
+                        <form method="GET" enctype="multipart/form-data" class="form-inline">
+                            <input id="f" class="form-control" maxlength="200" name="f" type="text" value="{{ f }}">
+                            <input type="hidden" name="page" value="{{ applications.number }}">
+                            <input type="hidden" name="set" value="{{ set }}">
+                            <input type="hidden" name="year_order_by" value="{{ year_order_by }}">
+                            <button type="submit" class="btn btn-default">поиск</button>
+                        </form>
+                    </td>
+                    <td class="col-sm-3">
+                        <a href="?f={{ f }}&page=1&set={{ set }}&year_order_by=ASC" class="btn btn-default">по возрастанию</a>
+                        <a href="?f={{ f }}&page=1&set={{ set }}&year_order_by=DESC" class="btn btn-default">по убыванию</a>
+                    </td>
+                    <td class="col-sm-3">
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="panel">
+            <table class="table table-bordered">
+            <tr>
+                <th class="col-sm-3">Name</th>
+                <th class="col-sm-3">Company</th>
+                <th class="col-sm-3">released</th>
+                <th class="col-sm-3">mail</th>
+            </tr>
+            {% for application in applications %}
+                <tbody>
+                    <tr>
+                        <td>{{ application.name }}</td>
+                        <td>{{application.company }}</td>
+                        <td>{{ application.released }}</td>
+                        <td>{{ application.mail }}</td>
+                    </tr>
+                </tbody>
+            {% endfor %}
+            </table>
+        </div>
+        <div class="col-sm-offset-3 col-sm-6">
+            <ul class="pagination">
+                {% if applications.has_previous %}
+                    <li><a href="?f={{ f }}&page=1&set={{ set }}&year_order_by={{ year_order_by }}">&laquo; first</a></li>
+                    <li><a href="?f={{ f }}&page={{ applications.previous_page_number }}&set={{ set }}&year_order_by={{ year_order_by }}">previous</a></li>
+                {% endif %}
+                <li><a>Page {{ applications.number }} of {{ applications.paginator.num_pages }}.</a></li>
+                {% if applications.has_next %}
+                    <li><a href="?f={{ f }}&page={{ applications.next_page_number }}&set={{ set }}&year_order_by={{ year_order_by }}">next</a></li>
+                    <li><a href="?f={{ f }}&page={{ applications.paginator.num_pages }}&set={{ set }}&year_order_by={{ year_order_by }}">last &raquo;</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
