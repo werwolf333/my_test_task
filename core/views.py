@@ -3,6 +3,7 @@ from django.views import View
 from core.models import Application
 from core.set_selenium_range import set_selenium_range
 from django.core.paginator import Paginator
+from pyvirtualdisplay import Display
 
 
 class TestList(View):
@@ -49,6 +50,8 @@ class Parsing(View):
 
 
 def selenium_range(start, end):
+    disp = Display(visible=False, size=(600, 600))
+    disp.start()
     generator = set_selenium_range(start, end)
     for id in range(start, end):
         args = next(generator)
@@ -60,3 +63,4 @@ def selenium_range(start, end):
             mail=args['mail']
         )
         app.save()
+    disp.stop()
