@@ -31,8 +31,9 @@ def set_selenium_range(start, end):
         '//*[@id="main"]/div/div/div[1]/div[2]/div[1]/div[2]/div[1]/pre',
         '//*[@id="main"]/div/div/div[1]/div[3]/div[1]/div[2]/div[1]/pre'
     ]
-
-    driver = webdriver.Chrome()
+    options = webdriver.ChromeOptions()
+    options.add_argument('--no-sandbox')
+    driver = webdriver.Chrome(options=options, executable_path='/usr/local/bin/chromedriver')
     start_way_XPATH = '//*[@id="all-products-listall-list-container"]/div/div'
     for num in range(start, end):
         driver.get("https://apps.microsoft.com/store/category/Business")
